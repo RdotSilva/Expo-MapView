@@ -60,7 +60,31 @@ export default class App extends React.Component {
 					latitudeDelta: 0.0922 / 3,
 					longitudeDelta: 0.0421 / 2.5
 				}}
-			/>
+			>
+				<Expo.MapView.Marker
+					coordinate={this.state.location.coords}
+					title="You are here"
+					description={this.state.where.name}
+				/>
+				<Expo.MapView.Marker
+					coordinate={this.state.places.eliotHouse}
+					title="Eliot House"
+					description="domus"
+					pinColor="blue"
+				/>
+				<Expo.MapView.Marker
+					coordinate={this.state.places.theCrimson}
+					title="The Crimson"
+					description="Student Newspaper"
+					pinColor="black"
+				/>
+				<Expo.MapView.Marker
+					coordinate={this.state.places.theKitty}
+					title="The Kitty"
+					description="Meow"
+					pinColor="yellow"
+				/>
+			</Expo.MapView>
 		);
 	}
 }
