@@ -7,6 +7,41 @@ export default class App extends React.Component {
 		location: null
 	};
 
+	_getLocationAsync = async () => {
+		let { status } = await Expo.Permissions.askAsync(
+			Expo.Permissions.LOCATION
+		);
+		if (status !== 'granted') {
+			console.err('Location permission not granted!');
+			return;
+		}
+		let location = await Expo.Location.getCurrentPositionAsync({});
+
+		let eliotHouse = (await Expo.Location.geocodeAsync(
+			'101 Dunster St.'
+		))[0];
+		let theCrimson = (await Expo.Location.geocodeAsync(
+			'14 Plympton St.'
+		))[0];
+		let theKitty = (await Expo.Location.geocodeAsync(
+			'2 Holoyke Place.'
+		))[0];
+
+		let where = (await Expo.Location.reverseGeocodeAsync(
+			location.coords
+		))[0];
+
+		this.setState({
+			location,
+			places: {
+				eliotHouse,
+				theCrimson,
+				theKitty
+			},
+			where
+		});
+	};
+
 	render() {
 		if (!this.state.location) {
 			return <View />;
